@@ -1,0 +1,120 @@
+program Project1;
+
+{$APPTYPE CONSOLE}
+
+uses
+
+  SysUtils;
+
+const
+
+  MaxRow=7;
+  MaxColumn=7;
+
+var
+
+  a:array[0..MaxRow,0..MaxColumn] of integer;
+  CurMatrixItem:integer; //Текущий элемент матрицы
+  CountRow,CountColumn:integer; //Заданное кол-во строк и столбцов
+  min:integer; //Минимальный элемент текущей строки
+  i,j:integer; //Счетчики цикла
+  ChangeItem:integer; //Переменная для обмена значениями
+  k1,k2:integer; 
+
+begin
+
+//Обнуление
+  CurMatrixItem:=0;
+  CountRow:=0;
+  CountColumn:=0;
+  k1:=0;
+  k2:=0;
+  i:=0;
+  j:=0;
+  min:=0;
+  c:=0;
+
+//Ввод
+  write('Number of rows: ');
+  readln(CountRow);
+  write('Number of columns: ');
+  readln(CountColumn);
+  for i := 0 to CountRow-1 do
+    for j := 0 to CountColumn-1 do
+    Begin
+      write('Element of matrix: ');
+      readln(a[i,j]);
+    End;
+
+//Вывод изначально введенной матрицы
+  for i := 0 to CountRow - 1 do
+  Begin
+    for j := 0 to CountColumn - 1 do
+    Begin
+      CurMatrixItem:=a[i,j];
+      write(CurMatrixItem:3,' ');
+    End;
+    writeln;
+  End;
+
+//Меняем местами минимальный элементы с элементом на главной
+  for i := 0 to CountRow-1 do
+  Begin
+    min:=a[i,0];
+    k1:=i;
+    k2:=0;
+    for j := 0 to CountColumn-1 do
+    Begin
+      if a[i,j]<min then
+      Begin
+        min:=a[i,j];
+        k1:=i;
+        k2:=j;
+      End;
+    End;
+  c:=a[i,i];
+  a[i,i]:=min;
+  a[k1,k2]:=c;
+  End;
+  writeln;
+
+//Вывод матрицы с измененным положением элементов
+  for i := 0 to CountRow - 1 do
+  Begin
+    for j := 0 to CountColumn - 1 do
+    Begin
+      CurMatrixItem:=a[i,j];
+      write(CurMatrixItem:3,' ');
+    End;
+    writeln;
+  End;
+
+//Вычеркиваем элементы главной диагонали
+  for i := 0 to CountRow - 1 do
+  Begin
+    for j := 1 to CountColumn - 1 do
+    Begin
+    if j>i then
+    Begin
+      c:=a[i,j-1];
+      a[i,j-1]:=a[i,j];
+      a[i,j]:=c;
+    End;
+    End;
+  a[i,j]:=0;
+  End;
+  writeln;
+
+//Вывод с вычеркнутыми элементами главной диагонали
+  for i := 0 to CountRow - 1 do
+  Begin
+    for j := 0 to CountColumn - 1 do
+    Begin
+      CurMatrixItem:=a[i,j];
+      write(CurMatrixItem:3,' ');
+    End;
+    writeln;
+  End;
+readln;
+
+end.

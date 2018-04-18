@@ -1,0 +1,130 @@
+program Project1;
+
+{$APPTYPE CONSOLE}
+
+uses
+
+  SysUtils;
+
+const
+
+  MaxRow=7; //Максимальное кол-во строк
+  MaxColumn=7; //Максимальное кол-во столбцов
+
+var
+
+  Matrix:array[0..MaxRow,0..MaxColumn] of integer; //Матрица
+  ArrayPos:array[0..MaxRow*MaxColumn] of integer; //Массив положительных элементов матрицы
+  CurMatrixItem:integer; //Текущий элемент матрицы
+  CountRow,CountColumn:integer; //Заданное кол-во строк и столбцов
+  min:integer; //Минимальный элемент текущей строки
+  i,j:integer; //Счетчики
+  ChangeItem:integer; //Переменная для обмена значениями
+  IndexItem_1,IndexItem_2:integer; //Переменные для сохранения индексов элемента матрицы
+  LenArrayPos:integer; //Длина массива из положительных элементов матрицы
+begin
+
+//Обнуление
+  CurMatrixItem:=0;
+  CountRow:=0;
+  CountColumn:=0;
+  IndexItem_1:=0;
+  IndexItem_2:=0;
+  i:=0;
+  j:=0;
+  min:=0;
+  ChangeItem:=0;
+  LenArrayPos:=0;
+
+//Ввод
+  write('Number of rows: ');
+  readln(CountRow);
+  write('Number of columns: ');
+  readln(CountColumn);
+  for i := 0 to CountRow-1 do
+    for j := 0 to CountColumn-1 do
+    Begin
+      write('Element of matrix: ');
+      readln(Matrix[i,j]);
+    End;
+
+//Вывод изначально введенной матрицы
+  for i := 0 to CountRow - 1 do
+  Begin
+    for j := 0 to CountColumn - 1 do
+    Begin
+      CurMatrixItem:=Matrix[i,j];
+      write(CurMatrixItem:3,' ');
+    End;
+    writeln;
+  End;
+
+//Меняем местами минимальный элементы с элементом на главной
+  for i := 0 to CountRow-1 do
+  Begin
+    min:=Matrix[i,0];
+    IndexItem_1:=i;
+    IndexItem_2:=0;
+    for j := 0 to CountColumn-1 do
+    Begin
+      if Matrix[i,j]<min then
+      Begin
+        min:=Matrix[i,j];
+        IndexItem_1:=i;
+        IndexItem_2:=j;
+      End;
+    End;
+  ChangeItem:=Matrix[i,i];
+  Matrix[i,i]:=min;
+  Matrix[IndexItem_1,IndexItem_2]:=ChangeItem;
+  End;
+  writeln;
+
+//Вывод матрицы с измененным положением элементов
+  for i := 0 to CountRow - 1 do
+  Begin
+    for j := 0 to CountColumn - 1 do
+    Begin
+      CurMatrixItem:=Matrix[i,j];
+      write(CurMatrixItem:3,' ');
+    End;
+    writeln;
+  End;
+
+//Вычеркиваем элементы главной диагонали
+  for i := 0 to CountRow - 1 do
+  Begin
+    for j := 1 to CountColumn - 1 do
+    Begin
+    if Matrix[i,j]>0 then
+    Begin
+      ArrayPos[k]:=Matrix[i,j];
+      k=k+1;
+    End;
+    if j>i then
+    Begin
+      ChangeItem:=Matrix[i,j-1];
+      Matrix[i,j-1]:=Matrix[i,j];
+      Matrix[i,j]:=ChangeItem;
+    End;
+    End;
+  Matrix[i,j]:=0;
+  End;
+  writeln;
+
+//Вывод с вычеркнутыми элементами главной диагонали
+  for i := 0 to CountRow - 1 do
+  Begin
+    for j := 0 to CountColumn - 1 do
+    Begin
+      CurMatrixItem:=Matrix[i,j];
+      write(CurMatrixItem:3,' ');
+    End;
+    writeln;
+  End;
+//Вывод массива из положительных элементов
+  for i := 0 to k - 1 do
+
+readln;
+
+end.

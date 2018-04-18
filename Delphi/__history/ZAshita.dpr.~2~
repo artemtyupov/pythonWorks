@@ -1,0 +1,22 @@
+program ZAshita;
+
+{$APPTYPE CONSOLE}
+
+uses
+  SysUtils;
+
+const
+  MaxRow = 6;
+  MaxColumn = 8;
+var
+  D : array[1..MaxRow,1..MaxColumn] of string;
+  ArrayElements : array[1..MaxRow] of string;
+  CountRow, CountColumn : integer;
+begin
+
+  writeln('¬ведите количество строк матрицы: ');
+  readln(CountRow);
+  writeln('¬ведите количество столбцов матрицы: ');
+  readln(CountColumn);
+    
+end.
